@@ -1,6 +1,7 @@
 require_relative '../models/address_book'
 
 RSpec.describe AddressBook do
+    
     describe "attributes" do
         
         it "responds to entries" do
@@ -35,6 +36,26 @@ RSpec.describe AddressBook do
             expect(new_entry.phone_number).to eq('010.012.1815')
             expect(new_entry.email).to eq('augusta.king@lovelace.com')
         end
+    end
+    
+    describe "#remove_entry" do
+        
+        it "it removes an entry using the name, phone_number, and email address" do
+            book = AddressBook.new
+            book.add_entry("Kevin Kosiorek", "122.122.1223", "kevin@kosiorek.com")
+            
+            name = "Ada Lovelace"
+            phone_number = "545.744.5884"
+            email_address = "augusta.king@someplace.com"
+            book.add_entry(name, phone_number, email_address)
+            
+            expect(book.entries.size).to eq 2
+            book.remove_entry(name, phone_number, email_address)
+            expect(book.entries.size).to eq 1
+            expect(book.entries.first.name).to eq("Kevin Kosiorek")
+            
+        end
+    
     end
             
 end
