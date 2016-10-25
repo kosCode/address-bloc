@@ -10,10 +10,11 @@ class MenuController
     def main_menu
         puts "Main Menu - #{address_book.entries.count} entries"
         puts "1 - View all entries"
-        puts "2 - Create an entry"
-        puts "3 - Search for entry"
-        puts "4 - Import entries from a CSV"
-        puts "5 - Exit"
+        puts "2 - View entry by number n"
+        puts "3 - Create an entry"
+        puts "4 - Search for entry"
+        puts "5 - Import entries from a CSV"
+        puts "6 - Exit"
         print "Enter your selection: "
         
         selection = gets.to_i
@@ -26,17 +27,21 @@ class MenuController
             main_menu
         when 2
             system "clear"
-            create_entry
+            view_entry_number
             main_menu
         when 3
             system "clear"
-            search_entries
+            create_entry
             main_menu
         when 4
             system "clear"
-            read_csv
+            search_entries
             main_menu
         when 5
+            system "clear"
+            read_csv
+            main_menu
+        when 6
             puts "Good-bye!"
             exit(0)
         else
@@ -59,10 +64,27 @@ class MenuController
         puts "End of entries"
     end
     
+    def view_entry_number
+       system "clear"
+       puts "What entry number?"
+       selection = gets.chomp.to_i
+       
+       if selection < @address_book.entries.count
+           puts @address_book.entries[selection]
+           puts " Press enter to return to the main menu"
+           gets.chomp
+           system "clear"
+       else
+           puts "#{selection} is not a valid option."
+           view_entry_number
+       end
+       
+    end
+    
     def create_entry
         system "clear"
         puts "New AddressBloc Entry"
-        
+
         print "Name: "
         name = gets.chomp
         
@@ -72,7 +94,7 @@ class MenuController
         print "Email: "
         email = gets.chomp
         
-        address_book.add_entry(name, phone, email)
+        address_book.add_entry( name, phone, email)
         
         system "clear"
         puts "New entry created"
