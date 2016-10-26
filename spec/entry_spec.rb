@@ -2,6 +2,8 @@ require_relative '../models/entry'
  
 RSpec.describe Entry do
     
+    
+    
     describe "attributes" do
         let(:entry) { Entry.new('Ada Lovelace', '010.012.1815', 'augusta.king@lovelace.com') }
         
@@ -38,6 +40,6 @@ RSpec.describe Entry do
             
             expect(entry.to_s).to eq(expected_string)
         end
-    end
-
+    end    
+    
 end
